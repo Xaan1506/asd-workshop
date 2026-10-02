@@ -1,0 +1,24 @@
+const path = require("path");
+const fs = require("fs/promises");
+
+const pathToFile = path.join(__dirname, "..", "db.json");
+
+async function readProducts() {
+    const data = await fs.readFile(pathToFile, "utf-8");
+
+    const products = JSON.parse(data);
+
+    return products;
+}
+
+async function writeProducts(products) {
+    await fs.writeFile(
+        pathToFile,
+        JSON.stringify(products, null, 2)
+    );
+}
+
+module.exports = {
+    readProducts,
+    writeProducts
+};
